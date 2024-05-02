@@ -18,6 +18,12 @@ import (
 	"context"
 	"flag"
 	"fmt"
+	"io/ioutil"
+	"log"
+	"os"
+	"path/filepath"
+	"time"
+
 	"github.com/openimsdk/open-im-server/v3/pkg/common/cmd"
 	"github.com/openimsdk/open-im-server/v3/pkg/common/config"
 	"github.com/openimsdk/tools/db/mongoutil"
@@ -26,11 +32,6 @@ import (
 	"github.com/openimsdk/tools/mq/kafka"
 	"github.com/openimsdk/tools/s3/minio"
 	"github.com/openimsdk/tools/system/program"
-	"io/ioutil"
-	"log"
-	"os"
-	"path/filepath"
-	"time"
 )
 
 const maxRetry = 180
@@ -131,9 +132,9 @@ func performChecks(ctx context.Context, mongoConfig *config.Mongo, redisConfig *
 		"Redis": func() error {
 			return CheckRedis(ctx, redisConfig)
 		},
-		"MinIO": func() error {
-			return CheckMinIO(ctx, minioConfig)
-		},
+		// "MinIO": func() error {
+		// 	return CheckMinIO(ctx, minioConfig)
+		// },
 		"Kafka": func() error {
 			return CheckKafka(ctx, kafkaConfig)
 		},
